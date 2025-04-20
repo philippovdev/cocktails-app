@@ -46,9 +46,7 @@ export function useRequest(
 ): UseRequestReturn {
   const { fetchFn, interceptors: rawInterceptors, defaultConfig } = options;
 
-  const interceptors = rawInterceptors
-    ? <T>() => rawInterceptors as InterceptorHooks<T>
-    : undefined;
+  const interceptors = rawInterceptors ? rawInterceptors : undefined;
 
   const client: HttpClient = createHttpClient(baseURL, {
     fetchFn,

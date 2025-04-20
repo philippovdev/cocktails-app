@@ -11,11 +11,19 @@ const { realSrc, imgEl, originalSrc } = useLazyImage(props.src);
 
 <template>
   <img
+    v-bind="$attrs"
     ref="imgEl"
     :src="realSrc"
     :data-src="originalSrc"
     :alt="props.alt"
     loading="lazy"
-    class=""
+    :class="s.image"
   />
 </template>
+
+<style module="s">
+.image {
+  max-width: 100%;
+  height: auto;
+}
+</style>

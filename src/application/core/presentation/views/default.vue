@@ -17,7 +17,6 @@ import AppNav from '../components/AppNav.vue';
       </Transition>
     </RouterView>
   </div>
-  <hr />
 
   <AppFooter />
 </template>
@@ -44,9 +43,9 @@ import AppNav from '../components/AppNav.vue';
 <style module="s">
 .wrapper {
   display: flex;
-  min-height: 100vh;
-  position: relative;
+  min-height: calc(100vh - var(--footer-height));
   border: var(--border-width) solid var(--color-border);
+  margin: calc(-1 * var(--border-width)) 0;
 }
 
 .navWrapper {

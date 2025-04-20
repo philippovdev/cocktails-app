@@ -23,6 +23,9 @@ export function _createRouter() {
         children: [],
       },
     ],
+    scrollBehavior() {
+      return { top: 0 };
+    },
   });
 
   const resolvedLayouts = new Map<string, Component>();

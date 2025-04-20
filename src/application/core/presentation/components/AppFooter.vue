@@ -30,5 +30,6 @@ const strYear =
   background-color: white;
   height: var(--footer-height);
   max-width: var(--max-width);
+  border-top: var(--border-width) solid var(--color-border);
 }
 </style>
