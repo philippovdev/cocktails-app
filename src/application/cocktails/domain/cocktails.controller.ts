@@ -10,14 +10,19 @@ export const useCocktailsController = () => {
   async function getCocktails(cocktailSlug: CocktailSlug) {
     if (!store.cocktailCache.has(cocktailSlug)) {
       store.isLoadingCocktail = true;
-      store.cocktailCache.set(
-        cocktailSlug,
-        (await service.fetchCocktails(cocktailSlug))?.drinks || []
-      );
-      store.cocktailId = cocktailSlug;
-      store.isLoadingCocktail = false;
+
+      try {
+        const response = await service.fetchCocktails(cocktailSlug);
+        store.cocktailCache.set(cocktailSlug, response?.drinks || []);
+      } catch (error) {
+        console.error('Error fetching cocktails:', error);
+        store.cocktailCache.set(cocktailSlug, []);
+      } finally {
+        store.cocktailSlug = cocktailSlug;
+        store.isLoadingCocktail = false;
+      }
     } else {
-      store.cocktailId = cocktailSlug;
+      store.cocktailSlug = cocktailSlug;
     }
   }
 

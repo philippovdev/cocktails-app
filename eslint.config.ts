@@ -179,6 +179,7 @@ export default [
   {
     name: 'override-vue-formatting-rules',
     rules: {
+      'vue/html-self-closing': 'off',
       'vue/html-indent': 'off',
       'vue/html-closing-bracket-newline': 'off',
       'vue/first-attribute-linebreak': 'off',

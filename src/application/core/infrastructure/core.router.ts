@@ -15,8 +15,8 @@ export function _createRouter() {
       },
       ...COCKTAILS_ROUTES,
       {
-        name: 'notFound',
-        path: '/:catchAll(.*)',
+        name: ROUTES.notFound.name,
+        path: ROUTES.notFound.path,
         meta: {
           layout: 'error',
         },

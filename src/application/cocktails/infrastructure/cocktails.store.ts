@@ -8,16 +8,16 @@ import type {
 
 export const useCocktailsStore = defineStore('cocktails', () => {
   const cocktailCache = shallowReactive(new Map<CocktailSlug, Cocktail[]>());
-  const cocktailId = shallowRef<CocktailSlug>();
-  const cocktail = computed(
-    () => cocktailId.value && cocktailCache.get(cocktailId.value)
+  const cocktailSlug = shallowRef<CocktailSlug>();
+  const cocktails = computed(
+    () => (cocktailSlug.value && cocktailCache.get(cocktailSlug.value)) || []
   );
   const isLoadingCocktail = ref(false);
 
   return {
-    cocktailId,
+    cocktailSlug,
     cocktailCache,
-    cocktail,
+    cocktails,
     isLoadingCocktail,
   };
 });

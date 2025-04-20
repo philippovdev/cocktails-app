@@ -11,7 +11,7 @@ const strYear =
   <footer :class="s.footer">
     <span>💚</span>
     <span>|</span>
-    © PhilippovDev {{ strYear }}
+    &copy; PhilippovDev {{ strYear }}
     <span>|</span>
     <span>💚</span>
   </footer>

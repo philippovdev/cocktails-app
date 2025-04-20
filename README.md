@@ -1,6 +1,9 @@
 # Cocktails app
 
 ---
+![draft interface](./cocktails-app-interface.png)
+
+---
 
 ### Demo project requirements:
 
