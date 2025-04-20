@@ -75,6 +75,9 @@ jobs:
         env:
           VITE_BASE_URL: /${{ github.event.repository.name }}/
 
+      - name: Add SPA fallback for history mode
+        run: cp dist/index.html dist/404.html
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 

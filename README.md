@@ -5,6 +5,12 @@
 ## Project Overview
 This is a Vue 3 application for displaying cocktail information fetched from TheCocktailDB API. The application follows a domain-driven design architecture with clear separation of concerns.
 
+---
+
+## [LIVE DEMO](https://philippovdev.github.io/cocktails-app/)
+
+---
+
 ### Key Features
 - Cocktail data fetching from TheCocktailDB API
 - State management using Pinia
