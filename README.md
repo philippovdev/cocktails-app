@@ -1,90 +1,84 @@
-# Cocktails app
+# Project Guidelines for Cocktails App
 
----
 ![draft interface](./cocktails-app-interface.png)
 
----
+## Project Overview
+This is a Vue 3 application for displaying cocktail information fetched from TheCocktailDB API. The application follows a domain-driven design architecture with clear separation of concerns.
 
-### Demo project requirements:
+### Key Features
+- Cocktail data fetching from TheCocktailDB API
+- State management using Pinia
+- Routing with Vue Router
+- Responsive design (360px to 1024px)
+- Error handling
+- Lazy loading for images
 
----
+### Cocktails Used
+- margarita
+- mojito
+- a1
+- kir
 
-#### == _Functional_ == 
-
----
-
-- draft interface implementation
-- data fetching
-- no boilerplate of any kind
-- api reference up to `GET: https://www.thecocktaildb.com/api/json/v1/1/search.php?s=<cocktail_code>`
-- cocktails to use: `margarita`, `mojito`, `a1`, `kir`
-- use Pinia state management
-- handle errors exceptions
-- cocktails code are used for router slugs and menu items
-- every menu item is leading to related page with description
-- active menu item is highlighted
-- by default, the first menu item is active and is used for the main page
-- root site directory '/' has to redirect user to first menu item
-- non-existing pages should redirect to 404 page
-- responsive interface with max width of 1024px and min width of 360px
-- adaptive interface for chrome and safari
-- should use lazy loading for images
----
-
-#### == _Non-Functional_ ==
-
-- scalable architecture. Must be structured in a way, that it's easily extendable and modifiable
-- quality gates (up to 5). Must contain instruments to guaranty code quality
-
----
-
-
-### Stack:
-
-- [Vue III](https://vuejs.org/)
-- [Pinia](https://pinia.vuejs.org/)
-- [Vue Router](https://router.vuejs.org/)
-- [Vitest](https://vitest.dev/)
-- [Playwright](https://playwright.dev/)
-- [ESLint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [TypeScript](https://www.typescriptlang.org/)
-
-### Arcitecture:
-
-```shell
+## Project Structure
+```
 src/
 ├── application/
 │   ├── FeatureName/ # domain
-│   │   ├── domain/ # this directory contains the domain logic
-│   │   │   ├── featureName.service.ts # communicates with api, returns promises
-│   │   │   └── featureName.controller.ts # contains domain business logic, consumes service. Used within components
+│   │   ├── domain/ # domain logic
+│   │   │   ├── featureName.service.ts # API communication
+│   │   │   └── featureName.controller.ts # business logic
 │   │   ├── infrastructure/
-│   │   │   ├── featureName.store.ts # state management (pinia store)
-│   │   │   └── featureName.router.ts # related router file
-│   │   └── presentation/ # contains the UI
-│   │       ├── components/ # components directory stores components used within feature views
-│   │       │   ├── ComponentName.vue # used within given view
-│   │       │   └── ComponentName2.vue # used within given view
-│   │       └── views/ # may be recursively filled with other "internal" features, preserving the same structure as above
-│   │           └── FeatureNameRoot.vue # orchestrates the feature UI
-├── assets/ # contains assets, which ***vite will add hash to file names***
-│   ├── css/
-│   ├── icons/
-│   ├── img/
-│   └── etc/ # could be anything we need to add hash to
-├── shared/ # shared code (read utilities), but split by domain for clear separation
-│   ├── Browser/ # BOW related APIs
-│   ├── Date/ # some date utils
-│   ├── String/ # could be string utils
-│   ├── UI/ # mostly components
-│   └── etc/ # could be anything shared, clearly separated by domain
-├── libs/ # none project services
-│   ├── Http/ # http client
-│   └── etc/ # could be anything shared, clearly separated by domain
+│   │   │   ├── featureName.store.ts # Pinia store
+│   │   │   └── featureName.router.ts # routing
+│   │   └── presentation/ # UI components
+│   │       ├── components/ # feature-specific components
+│   │       └── views/ # feature views
+├── assets/ # static assets
+├── shared/ # shared utilities
+├── libs/ # external services
 ├── App.vue
 └── main.ts
 ```
+
+## Functional Requirements
+- Draft interface implementation
+- Data fetching from API
+- API reference: `GET: https://www.thecocktaildb.com/api/json/v1/1/search.php?s=<cocktail_code>`
+- Cocktail codes used for router slugs and menu items
+- Every menu item leads to related page with description
+- Active menu item is highlighted
+- By default, the first menu item is active and used for the main page
+- Root site directory '/' redirects user to first menu item
+- Non-existing pages redirect to 404 page
+- Responsive interface with max width of 1024px and min width of 360px
+- Adaptive interface for Chrome and Safari
+- Lazy loading for images
+
+## Non-Functional Requirements
+- Scalable architecture that is easily extendable and modifiable
+- Quality gates with instruments to guarantee code quality
+
+## Testing Guidelines
+- Unit tests should be run using Vitest: `pnpm test:unit`
+- E2E tests should be run using Playwright: `pnpm test:e2e`
+- When implementing solutions, ensure all tests pass before submitting
+
+## Build Process
+- Development server: `pnpm dev`
+- Production build: `pnpm build`
+- Type checking is enforced during the build process
+
+## Code Style Guidelines
+- TypeScript is used throughout the project
+- Follow ESLint and Prettier configurations
+- Run linting before submitting: `pnpm lint`
+- Maintain the domain-driven architecture pattern
+- Keep components focused on a single responsibility
+
+## API Integration
+- Use the TheCocktailDB API: `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=<cocktail_code>`
+- Handle API errors gracefully
+- Implement proper loading states
 
 ## Project Setup
 
