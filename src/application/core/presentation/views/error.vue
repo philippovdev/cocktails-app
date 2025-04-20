@@ -52,13 +52,5 @@ const route = useRoute();
 
 .slugItem {
   list-style-type: none;
-
-  a {
-    color: var(--color-link);
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
 }
 </style>

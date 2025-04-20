@@ -184,10 +184,13 @@ describe('cocktails view', () => {
       const anchorsNoActive = navWrapper
         .findAll('a')
         .filter((a) => !a.classes('router-link-active'));
-      expect(anchorActive.classes()).toEqual([
-        'router-link-active',
-        'router-link-exact-active',
-      ]);
+      expect(
+        anchorActive
+          .classes()
+          .filter((c) =>
+            ['router-link-active', 'router-link-exact-active'].includes(c)
+          )
+      ).toEqual(['router-link-active', 'router-link-exact-active']);
       expect(anchorsNoActive.length).toBe(COCKTAILS.length - 1);
     }
   });

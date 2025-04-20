@@ -3,6 +3,7 @@ defineOptions({
   name: 'AppNav',
 });
 import { COCKTAILS } from '@/application/cocktails/domain/types.ts';
+import uppercaseFirst from '@/shared/text/uppercaseFirst.ts';
 
 import { ROUTES } from '../../domain/routes.ts';
 </script>
@@ -13,8 +14,10 @@ import { ROUTES } from '../../domain/routes.ts';
       v-for="slug in COCKTAILS"
       :key="slug"
       :to="{ name: ROUTES.cocktailsShow.name, params: { slug } }"
+      :class="s.item"
+      :title="uppercaseFirst(slug)"
     >
-      {{ slug }}
+      {{ uppercaseFirst(slug) }}
     </RouterLink>
   </nav>
 </template>
@@ -23,6 +26,26 @@ import { ROUTES } from '../../domain/routes.ts';
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  padding: 30px 0;
+}
+
+.item {
+  padding: var(--spacing-item-x) var(--spacing-item-y);
+  font-size: var(--font-size-xl);
+  border: var(--border-width) solid transparent;
+  margin: calc(-1 * var(--border-width));
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item:global(.router-link-active) {
+  color: var(--color-primary);
+  background-color: var(--color-bg-primary-active);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.item:hover {
+  color: var(--color-primary);
+  background-color: var(--color-bg-primary-lighten);
 }
 </style>

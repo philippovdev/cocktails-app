@@ -29,10 +29,22 @@ watch(
       <li
         v-for="cocktail in store.cocktails"
         :key="cocktail.idDrink"
-        style="min-height: 1000px"
+        style="min-height: 500px"
       >
-        <LazyImage :src="cocktail.strDrinkThumb" :alt="cocktail.strDrink" />
+        <div :class="s.imageWrapper">
+          <LazyImage
+            style="max-width: 100%"
+            :src="cocktail.strDrinkThumb"
+            :alt="cocktail.strDrink"
+          />
+        </div>
       </li>
     </ul>
   </div>
 </template>
+
+<style module="s">
+.imageWrapper {
+  max-width: 100%;
+}
+</style>

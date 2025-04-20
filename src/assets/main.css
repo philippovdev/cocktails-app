@@ -1,6 +1,7 @@
 :root {
   --max-width: 1024px;
   --min-width: 360px;
+
   --footer-height: 40px;
   max-width: var(--max-width);
   min-width: var(--min-width);
@@ -9,12 +10,63 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
+  --bp-mobile: 600px;
+  --bp-tablet: 900px;
+  --bp-desktop: 1024px;
+
   --color-primary: black;
-  --color-link: darkblue;
+  --color-link: #828282;
+
+  --color-bg-primary-lighten: rgba(0, 0, 0, 0.025);
+  --color-bg-primary-active: rgba(0, 0, 0, 0.05);
+
+  --border-width: 2px;
+  --color-border: rgba(0, 0, 0, 0.15);
+
+  --font-size-regular: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+
+  --spacing-item-x: 1rem;
+  --spacing-item-y: 1.5rem;
+
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  :root {
+    --font-size-xl: 1.25rem;
+    --spacing-item-x: .5rem;
+    --spacing-item-y: 1rem;
+  }
+}
+
+/* TABLET */
+@media (min-width: 900px) {
+  :root {
+    --font-size-xl: 1.75rem;
+    --spacing-item-x: .875rem;
+    --spacing-item-y: 1rem;
+  }
+}
+
+/* DESKTOP */
+@media (min-width: 1024px) {
+  :root {
+    --font-size-xl: 2rem;
+    --spacing-item-x: 1rem;
+    --spacing-item-y: 1.5rem;
+  }
 }
