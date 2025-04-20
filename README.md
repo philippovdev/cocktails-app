@@ -64,6 +64,33 @@ src/
 - Scalable architecture that is easily extendable and modifiable
 - Quality gates with instruments to guarantee code quality
 
+## Quality Gates
+This project implements several quality gates to ensure code quality:
+
+### Type Checking
+- TypeScript is used throughout the project
+- Type checking is enforced during development and build process
+- Run type checking: `pnpm type-check`
+
+### Linting
+- ESLint is configured with multiple plugins for Vue, TypeScript, and more
+- Linting rules enforce code quality standards
+- Run linting with auto-fix: `pnpm lint`
+
+### Formatting
+- Prettier is used for consistent code formatting
+- Format the codebase: `pnpm format`
+
+### Unit Testing
+- Vitest is used for unit testing
+- Tests ensure functionality works as expected
+- Run unit tests: `pnpm test:unit`
+
+### Pre-commit Hooks
+- Husky is used to manage Git hooks
+- Pre-commit hook runs linting to ensure code quality before commits
+- Lint-staged ensures only staged files are linted
+
 ## Testing Guidelines
 - Unit tests should be run using Vitest: `pnpm test:unit`
 - E2E tests should be run using Playwright: `pnpm test:e2e`
