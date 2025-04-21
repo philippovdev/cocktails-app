@@ -2,10 +2,25 @@
 defineOptions({
   name: 'AppNav',
 });
-import { COCKTAILS } from '@/application/cocktails/domain/types.ts';
+import {
+  COCKTAILS,
+  type CocktailSlug,
+} from '@/application/cocktails/domain/types.ts';
 import uppercaseFirst from '@/shared/text/uppercaseFirst.ts';
 
 import { ROUTES } from '../../domain/routes.ts';
+
+function createPreconnectLink(slug: CocktailSlug) {
+  const link = document.createElement('link');
+  link.rel = 'preconnect';
+  link.href = `${import.meta.env.VITE_API_BASE_URL}search.php?s=${slug}`;
+  return link;
+}
+
+function onMouseEnter(slug: CocktailSlug) {
+  document.head.querySelector('link[rel="preconnect"]')?.remove();
+  document.head.appendChild(createPreconnectLink(slug));
+}
 </script>
 
 <template>
@@ -16,6 +31,7 @@ import { ROUTES } from '../../domain/routes.ts';
       :to="{ name: ROUTES.cocktailsShow.name, params: { slug } }"
       :class="s.item"
       :title="uppercaseFirst(slug)"
+      @mouseenter="onMouseEnter(slug)"
     >
       {{ uppercaseFirst(slug) }}
     </RouterLink>
