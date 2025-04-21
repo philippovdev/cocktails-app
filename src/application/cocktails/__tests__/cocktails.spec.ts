@@ -143,30 +143,25 @@ describe('cocktails view', () => {
     const wrapper = mount(CocktailComponent, {
       global: { plugins: [router, createPinia()] },
     });
-
     await nextTick();
 
-    const img = wrapper.get('img');
     expect(ioInstances).toHaveLength(1);
-    expect(ioInstances[0].observe).toHaveBeenCalledWith(img.element);
-
-    expect(img.attributes('src')).toBe('');
-    expect(img.attributes('data-src')).toBe(IMAGE_BASE_URL + 'margarita.jpg');
 
     ioInstances[0].trigger({ isIntersecting: true });
     await nextTick();
 
-    expect(img.attributes('src')).toBe(IMAGE_BASE_URL + 'margarita.jpg');
-  });
+    expect(ioInstances).toHaveLength(2);
 
-  it('uses lazy loading for images', async () => {
-    await router.push('/');
-    const wrapper = mount(CocktailComponent, {
-      global: { plugins: [router, createPinia()] },
-    });
+    const img = wrapper.get('img');
+    expect(ioInstances[1].observe).toHaveBeenCalledWith(img.element);
+
+    expect(img.attributes('src')).toBe('');
+    expect(img.attributes('data-src')).toBe(IMAGE_BASE_URL + 'margarita.jpg');
+
+    ioInstances[1].trigger({ isIntersecting: true });
     await nextTick();
-    const lazyImage = wrapper.findComponent({ name: 'LazyImage' });
-    expect(lazyImage.exists()).toBe(true);
+
+    expect(img.attributes('src')).toBe(IMAGE_BASE_URL + 'margarita.jpg');
   });
 
   it('responsive interface with max width of 1024px and min width of 360px', () => {

@@ -5,6 +5,8 @@ defineOptions({ name: 'CocktailsShow' });
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 
+import Spinner from '@/shared/ui/spinner/presentation/components/Spinner.vue';
+
 import { useCocktailsController } from '../../domain/cocktails.controller.ts';
 import { COCKTAILS, type CocktailSlug } from '../../domain/types.ts';
 import { useCocktailsStore } from '../../infrastructure/cocktails.store.ts';
@@ -26,7 +28,7 @@ watch(
 <template>
   <div>
     <div v-if="store.isLoadingCocktail" :class="[s.wrapper, s.loaderWrapper]">
-      <div :class="s.spinner" />
+      <spinner />
       Loading...
     </div>
     <div
@@ -63,17 +65,6 @@ watch(
 </template>
 
 <style module="s">
-.spinner {
-  width: 1rem;
-  height: 1rem;
-  min-width: 1rem;
-  min-height: 1rem;
-  border-radius: 50%;
-  border: 2px solid var(--border-color);
-  border-top-color: var(--border-color--darken);
-  animation: spin 1s linear infinite;
-}
-
 .wrapper {
   display: flex;
   justify-content: center;
@@ -113,11 +104,5 @@ watch(
 .item + .item {
   margin-top: var(--spacing-base);
   border-top: var(--border-width) solid var(--border-color);
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 </style>

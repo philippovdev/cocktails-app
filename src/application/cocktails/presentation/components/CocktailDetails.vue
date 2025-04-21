@@ -3,6 +3,7 @@ import { computed, nextTick, onMounted, ref } from 'vue';
 
 import type { Cocktail } from '@/application/cocktails/domain/types.ts';
 import LazyImage from '@/shared/ui/image/presentation/components/LazyImage.vue';
+import LazyLoad from '@/shared/ui/lazy/presentation/LazyLoad.vue';
 
 const props = defineProps<{ cocktail: Cocktail }>();
 const thumb = `url(${props.cocktail.strDrinkThumb})`;
@@ -73,14 +74,16 @@ onMounted(init);
       {{ cocktail.strDrink }}
     </h2>
 
-    <div :class="s.imageWrapper">
-      <LazyImage
-        :src="cocktail.strDrinkThumb"
-        :alt="cocktail.strDrink"
-        width="200"
-        height="200"
-      />
-    </div>
+    <lazy-load :class="s.imageCell">
+      <div :class="s.imageWrapper">
+        <LazyImage
+          :src="cocktail.strDrinkThumb"
+          :alt="cocktail.strDrink"
+          width="200"
+          height="200"
+        />
+      </div>
+    </lazy-load>
 
     <div :class="s.description">
       <span>{{ cocktail.strCategory }}</span>
@@ -171,8 +174,11 @@ onMounted(init);
   list-style: none;
 }
 
-.imageWrapper {
+.imageCell {
   grid-area: image;
+}
+
+.imageWrapper {
   position: relative;
   overflow: hidden;
 
