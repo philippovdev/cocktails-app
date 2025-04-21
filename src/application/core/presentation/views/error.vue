@@ -23,7 +23,7 @@ const route = useRoute();
     </p>
     <p>Try one of these:</p>
     <ul :class="s.slugWrapper">
-      <li v-for="slug in COCKTAILS" :key="slug" :class="s.slugItem">
+      <li v-for="slug in COCKTAILS" :key="slug">
         <RouterLink :to="{ name: ROUTES.cocktailsShow.name, params: { slug } }">
           {{ slug }}
         </RouterLink>
@@ -48,9 +48,6 @@ const route = useRoute();
 .slugWrapper {
   display: flex;
   gap: var(--spacing-small);
-}
-
-.slugItem {
   list-style-type: none;
 }
 </style>
