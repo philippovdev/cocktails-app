@@ -7,10 +7,19 @@ import uppercaseFirst from '@/shared/text/uppercaseFirst.ts';
 
 import { ROUTES } from '../../domain/routes.ts';
 
+const API_BASE = (import.meta.env.VITE_API_BASE_URL?.replace(/\/?$/, '/') ??
+  '/') as string;
+
 const prefetched = new Set<string>();
 
+function buildUrl(slug: CocktailSlug) {
+  return `${API_BASE}search.php?s=${encodeURIComponent(slug)}`;
+}
+
 function addPrefetch(slug: CocktailSlug) {
-  const url = `${import.meta.env.VITE_API_BASE_URL}search.php?s=${slug}`;
+  if (typeof window === 'undefined') return;
+
+  const url = buildUrl(slug);
   if (prefetched.has(url)) return;
 
   const link = document.createElement('link');
@@ -19,7 +28,12 @@ function addPrefetch(slug: CocktailSlug) {
   link.href = url;
   link.crossOrigin = 'anonymous';
 
-  link.addEventListener('error', () => link.remove());
+  const onError = () => {
+    prefetched.delete(url);
+    link.remove();
+  };
+
+  link.addEventListener('error', onError, { once: true });
 
   document.head.appendChild(link);
   prefetched.add(url);
@@ -27,14 +41,14 @@ function addPrefetch(slug: CocktailSlug) {
 </script>
 
 <template>
-  <nav :class="s.nav">
+  <nav :class="s.nav" aria-label="Cocktail list">
     <RouterLink
       v-for="slug in COCKTAILS"
       :key="slug"
       :to="{ name: ROUTES.cocktailsShow.name, params: { slug } }"
       :class="s.item"
       :title="uppercaseFirst(slug)"
-      @mouseenter="addPrefetch(slug)"
+      @pointerenter="addPrefetch(slug)"
     >
       {{ uppercaseFirst(slug) }}
     </RouterLink>
@@ -57,10 +71,10 @@ function addPrefetch(slug: CocktailSlug) {
   text-overflow: ellipsis;
 }
 
-.item:global(.router-link-active) {
+:global(.router-link-active).item {
   color: var(--color-primary);
   background-color: var(--color-bg-primary--active);
-  border: var(--border-width) solid var(--border-color);
+  border-color: var(--border-color);
 }
 
 .item:hover {
