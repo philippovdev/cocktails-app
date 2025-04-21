@@ -22,11 +22,11 @@ const ingredients = computed(() => {
     if (!isCocktailKey(measureKey)) continue;
     const measure = props.cocktail[measureKey];
 
-    const val = props.cocktail[key];
+    const ingredient = props.cocktail[key];
 
-    if (typeof val === 'string' && val.trim().length) {
+    if (typeof ingredient === 'string' && ingredient.trim().length) {
       list.push({
-        ingredient: val,
+        ingredient,
         measure: measure || 'by hand',
       });
     }
@@ -53,8 +53,8 @@ function registerSpan(el: HTMLElement) {
   }
 }
 
-function isCocktailKey(k: string): k is keyof Cocktail {
-  return k in props.cocktail;
+function isCocktailKey(key: string): key is keyof Cocktail {
+  return key in props.cocktail;
 }
 
 async function init() {
