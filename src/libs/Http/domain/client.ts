@@ -6,10 +6,10 @@ import type {
 } from '@/libs/Http/domain/types.ts';
 
 export class HttpClient {
-  private baseURL: string;
-  private fetchFn: typeof fetch;
+  private readonly baseURL: string;
+  private readonly fetchFn: typeof fetch;
   public interceptors: InterceptorHooks<unknown>;
-  private defaultConfig: RequestConfig;
+  private readonly defaultConfig: RequestConfig;
   private controllers: Set<AbortController> = new Set();
 
   constructor(

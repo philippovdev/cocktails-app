@@ -44,14 +44,14 @@ import AppNav from '../components/AppNav.vue';
 .wrapper {
   display: flex;
   min-height: calc(100vh - var(--footer-height));
-  border: var(--border-width) solid var(--color-border);
+  border: var(--border-width) solid var(--border-color);
   margin: calc(-1 * var(--border-width)) 0;
 }
 
 .navWrapper {
   width: 35%;
   max-width: 35%;
-  border-right: var(--border-width) solid var(--color-border);
+  border-right: var(--border-width) solid var(--border-color);
 }
 
 .navInner {

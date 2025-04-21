@@ -127,7 +127,7 @@ onMounted(init);
     'description image'
     'instructions image'
     'ingredients  .    ';
-  gap: var(--spacing-item-y) var(--spacing-item-x);
+  gap: var(--spacing-item-y) var(--spacing-base);
 }
 
 @media (max-width: 768px) {

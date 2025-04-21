@@ -17,9 +17,7 @@ export function _createRouter() {
       {
         name: ROUTES.notFound.name,
         path: ROUTES.notFound.path,
-        meta: {
-          layout: 'error',
-        },
+        meta: { layout: 'error' },
         children: [],
       },
     ],

@@ -11,27 +11,43 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
+  /* FLUID RANGES */
+  --fluid-min-vw: 360; /* px */
+  --fluid-max-vw: 1200; /* px */
+  --fluid-min-size: 1.25; /* rem */
+  --fluid-max-size: 2; /* rem */
+
+  /* FLUID TYPOGRAPHY */
+  --font-size-xl: clamp(
+    var(--fluid-min-size) * 1rem,
+    calc(var(--fluid-min-size) * 1rem
+    + (var(--fluid-max-size) - var(--fluid-min-size))
+    * ((100vw - var(--fluid-min-vw) * 1px)
+    / (var(--fluid-max-vw) - var(--fluid-min-vw)))
+    * 1rem
+  ),
+  var(--fluid-max-size) *1rem);
+
   /* COLORS */
   --color-primary: black;
   --color-link: #828282;
 
   /* BACKGROUND */
-  --color-bg-primary-lighten: rgba(0, 0, 0, 0.025);
-  --color-bg-primary-active: rgba(0, 0, 0, 0.05);
+  --color-bg-primary--lighten: rgba(0, 0, 0, 0.025);
+  --color-bg-primary--active: rgba(0, 0, 0, 0.05);
 
   /* BORDER */
   --border-width: 2px;
-  --color-border: rgba(0, 0, 0, 0.15);
+  --border-color--darken: #333;
+  --border-color: rgba(0, 0, 0, 0.15);
 
-  /* FONT SIZES */
+  /* TYPOGRAPHY */
   --font-size-regular: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.5rem;
 
   /* SPACINGS */
-  --spacing-base: 1rem;
-  --spacing-item-x: var(--spacing-base);
-  --spacing-item-y: 1.5rem;
+  --spacing-small: 0.5rem;
+  --spacing-base: 0.5rem;
+  --spacing-item-y: 0.875rem;
 
 }
 
@@ -47,26 +63,26 @@ a {
   cursor: pointer;
 }
 
-/* MOBILE */
-@media (max-width: 600px) {
+/* ——— TABLET — screens ≥ 600px ——— */
+@media (min-width: 600px) {
   :root {
-    --font-size-xl: 1.25rem;
-    --spacing-base: .5rem;
-    --spacing-item-y: .875rem;
-  }
-}
-
-/* TABLET */
-@media (min-width: 900px) {
-  :root {
-    --font-size-xl: 1.75rem;
-    --spacing-base: .875rem;
+    --font-size-xl: 1.5rem;
+    --spacing-base: 0.75rem;
     --spacing-item-y: 1rem;
   }
 }
 
-/* DESKTOP */
-@media (min-width: 1024px) {
+/* ——— LAPTOP — screens ≥ 900px ——— */
+@media (min-width: 900px) {
+  :root {
+    --font-size-xl: 1.75rem;
+    --spacing-base: 0.875rem;
+    --spacing-item-y: 1.25rem;
+  }
+}
+
+/* ——— DESKTOP — screens ≥ 1200px ——— */
+@media (min-width: 1200px) {
   :root {
     --font-size-xl: 2rem;
     --spacing-base: 1rem;

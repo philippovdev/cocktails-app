@@ -25,11 +25,11 @@ const strYear =
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  padding: 0.5rem;
+  gap: var(--spacing-base);
+  padding: var(--spacing-small);
   background-color: white;
   height: var(--footer-height);
   max-width: var(--max-width);
-  border-top: var(--border-width) solid var(--color-border);
+  border-top: var(--border-width) solid var(--border-color);
 }
 </style>

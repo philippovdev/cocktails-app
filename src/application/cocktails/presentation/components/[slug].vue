@@ -46,8 +46,8 @@ watch(
   min-width: 1rem;
   min-height: 1rem;
   border-radius: 50%;
-  border: 2px solid #ccc;
-  border-top-color: #333;
+  border: 2px solid var(--border-color);
+  border-top-color: var(--border-color--darken);
   animation: spin 1s linear infinite;
 }
 
@@ -55,7 +55,7 @@ watch(
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-small);
   min-height: 100%;
 }
 
@@ -64,8 +64,8 @@ watch(
 }
 
 .item + .item {
-  margin-top: 1rem;
-  border-top: var(--border-width) solid var(--color-border);
+  margin-top: var(--spacing-base);
+  border-top: var(--border-width) solid var(--border-color);
 }
 
 @keyframes spin {

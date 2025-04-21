@@ -47,7 +47,7 @@ const route = useRoute();
 
 .slugWrapper {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--spacing-small);
 }
 
 .slugItem {

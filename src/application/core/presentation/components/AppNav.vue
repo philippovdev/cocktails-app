@@ -30,7 +30,7 @@ import { ROUTES } from '../../domain/routes.ts';
 }
 
 .item {
-  padding: var(--spacing-item-x) var(--spacing-item-y);
+  padding: var(--spacing-base) var(--spacing-item-y);
   font-size: var(--font-size-xl);
   border: var(--border-width) solid transparent;
   margin: calc(-1 * var(--border-width));
@@ -40,12 +40,12 @@ import { ROUTES } from '../../domain/routes.ts';
 
 .item:global(.router-link-active) {
   color: var(--color-primary);
-  background-color: var(--color-bg-primary-active);
-  border: var(--border-width) solid var(--color-border);
+  background-color: var(--color-bg-primary--active);
+  border: var(--border-width) solid var(--border-color);
 }
 
 .item:hover {
   color: var(--color-primary);
-  background-color: var(--color-bg-primary-lighten);
+  background-color: var(--color-bg-primary--lighten);
 }
 </style>
