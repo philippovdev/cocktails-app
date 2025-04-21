@@ -82,6 +82,7 @@ onMounted(init);
           :alt="cocktail.strDrink"
           width="200"
           height="200"
+          fetch-priority="high"
         />
       </div>
     </lazy-load>
