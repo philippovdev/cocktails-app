@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type { LazyImageProps } from '@/shared/ui/image/domain/types.ts';
-
-import { useLazyImage } from '../../domain/useLazyImage';
+import type { LazyImageProps } from './types.ts';
+import { useLazyImage } from './useLazyImage';
 
 defineOptions({ name: 'LazyImage' });
 

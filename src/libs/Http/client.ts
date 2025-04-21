@@ -3,7 +3,7 @@ import type {
   InterceptorHooks,
   MiddlewareContext,
   RequestConfig,
-} from '@/libs/Http/domain/types.ts';
+} from '@/libs/Http/types.ts';
 
 export class HttpClient {
   private readonly baseURL: string;

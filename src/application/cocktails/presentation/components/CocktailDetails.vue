@@ -3,8 +3,8 @@ defineOptions({ name: 'CocktailDetails' });
 import { computed, nextTick, onMounted, ref } from 'vue';
 
 import type { Cocktail } from '@/application/cocktails/domain/types.ts';
-import LazyImage from '@/shared/ui/image/presentation/components/LazyImage.vue';
-import LazyLoad from '@/shared/ui/lazy/presentation/components/LazyLoad.vue';
+import LazyImage from '@/shared/ui/image/LazyImage.vue';
+import LazyLoad from '@/shared/ui/lazy/LazyLoad.vue';
 
 const props = defineProps<{ cocktail: Cocktail }>();
 const thumb = `url(${props.cocktail.strDrinkThumb})`;

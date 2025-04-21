@@ -1,4 +1,4 @@
-import { useRequest } from '@/libs/Http/domain/useRequest.ts';
+import { useRequest } from '@/libs/Http/useRequest.ts';
 
 import type { CocktailSlug, DrinksResponse } from './types.ts';
 

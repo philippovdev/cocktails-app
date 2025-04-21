@@ -5,7 +5,7 @@ defineOptions({ name: 'CocktailsShow' });
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 
-import Spinner from '@/shared/ui/spinner/presentation/components/Spinner.vue';
+import Spinner from '@/shared/ui/spinner/Spinner.vue';
 
 import { useCocktailsController } from '../../domain/cocktails.controller.ts';
 import { COCKTAILS, type CocktailSlug } from '../../domain/types.ts';

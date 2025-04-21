@@ -62,6 +62,6 @@ export const getMock = vi.fn((url: string) => {
   });
 });
 
-vi.mock('@/libs/Http/domain/useRequest', () => ({
+vi.mock('@/libs/Http/useRequest', () => ({
   useRequest: () => ({ get: getMock }),
 }));

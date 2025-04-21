@@ -6,9 +6,9 @@
 </template>
 
 <script setup lang="ts">
-import Spinner from '@/shared/ui/spinner/presentation/components/Spinner.vue';
+import Spinner from '@/shared/ui/spinner/Spinner.vue';
 
-import { useLazyLoad } from '../../domain/useLazyLoad';
+import { useLazyLoad } from '../lazy/useLazyLoad';
 
 const { el, isVisible } = useLazyLoad('0px', 0);
 </script>
