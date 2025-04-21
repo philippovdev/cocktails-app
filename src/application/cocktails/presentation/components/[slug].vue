@@ -54,11 +54,11 @@ watch(
     </div>
     <ul v-else>
       <li
-        v-for="cocktail in store.cocktails"
+        v-for="(cocktail, i) in store.cocktails"
         :key="cocktail.idDrink"
         :class="s.item"
       >
-        <cocktail-details :cocktail="cocktail" />
+        <cocktail-details :cocktail="cocktail" :is-pivot="i === 0" />
       </li>
     </ul>
   </div>

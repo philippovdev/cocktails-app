@@ -1,12 +1,12 @@
 <script setup lang="ts">
 defineOptions({ name: 'CocktailDetails' });
-import { computed, nextTick, onMounted, ref } from 'vue';
+import { computed, nextTick, onBeforeMount, onMounted, ref } from 'vue';
 
 import type { Cocktail } from '@/application/cocktails/domain/types.ts';
 import LazyImage from '@/shared/ui/image/LazyImage.vue';
 import LazyLoad from '@/shared/ui/lazy/LazyLoad.vue';
 
-const props = defineProps<{ cocktail: Cocktail }>();
+const props = defineProps<{ cocktail: Cocktail; isPivot?: boolean }>();
 const thumb = `url(${props.cocktail.strDrinkThumb})`;
 const measuresMap = ref(new Map());
 const ingredientSpans = ref<HTMLElement[]>([]);
@@ -66,6 +66,17 @@ async function init() {
   });
 }
 
+function preloadLCPImage() {
+  if (!props.isPivot) return;
+  const img = new Image();
+  img.src = props.cocktail.strDrinkThumb;
+
+  img.onload = () => {
+    img.remove();
+  };
+}
+
+onBeforeMount(preloadLCPImage);
 onMounted(init);
 </script>
 
