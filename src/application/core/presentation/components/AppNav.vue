@@ -1,7 +1,4 @@
 <script setup lang="ts">
-defineOptions({
-  name: 'AppNav',
-});
 import {
   COCKTAILS,
   type CocktailSlug,
@@ -10,16 +7,22 @@ import uppercaseFirst from '@/shared/text/uppercaseFirst.ts';
 
 import { ROUTES } from '../../domain/routes.ts';
 
-function createPreconnectLink(slug: CocktailSlug) {
-  const link = document.createElement('link');
-  link.rel = 'preconnect';
-  link.href = `${import.meta.env.VITE_API_BASE_URL}search.php?s=${slug}`;
-  return link;
-}
+const prefetched = new Set<string>();
 
-function onMouseEnter(slug: CocktailSlug) {
-  document.head.querySelector('link[rel="preconnect"]')?.remove();
-  document.head.appendChild(createPreconnectLink(slug));
+function addPrefetch(slug: CocktailSlug) {
+  const url = `${import.meta.env.VITE_API_BASE_URL}search.php?s=${slug}`;
+  if (prefetched.has(url)) return;
+
+  const link = document.createElement('link');
+  link.rel = 'prefetch';
+  link.as = 'fetch';
+  link.href = url;
+  link.crossOrigin = 'anonymous';
+
+  link.addEventListener('error', () => link.remove());
+
+  document.head.appendChild(link);
+  prefetched.add(url);
 }
 </script>
 
@@ -31,7 +34,7 @@ function onMouseEnter(slug: CocktailSlug) {
       :to="{ name: ROUTES.cocktailsShow.name, params: { slug } }"
       :class="s.item"
       :title="uppercaseFirst(slug)"
-      @mouseenter="onMouseEnter(slug)"
+      @mouseenter="addPrefetch(slug)"
     >
       {{ uppercaseFirst(slug) }}
     </RouterLink>
