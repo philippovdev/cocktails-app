@@ -93,7 +93,6 @@ This project implements several quality gates to ensure code quality:
 
 ## Testing Guidelines
 - Unit tests should be run using Vitest: `pnpm test:unit`
-- E2E tests should be run using Playwright: `pnpm test:e2e`
 - When implementing solutions, ensure all tests pass before submitting
 
 ## Build Process

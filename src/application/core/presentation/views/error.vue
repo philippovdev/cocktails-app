@@ -37,7 +37,7 @@ const route = useRoute();
 <style module="s">
 .wrapper {
   display: flex;
-  height: calc(100vh - var(--footer-height));
+  height: calc(100vh - 2 * var(--footer-height));
   flex-direction: column;
   justify-content: center;
   align-items: center;
