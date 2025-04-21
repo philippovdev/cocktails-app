@@ -1,4 +1,5 @@
 <script setup lang="ts">
+defineOptions({ name: 'CocktailDetails' });
 import { computed, nextTick, onMounted, ref } from 'vue';
 
 import type { Cocktail } from '@/application/cocktails/domain/types.ts';

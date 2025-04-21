@@ -1,59 +1,23 @@
 import { mount } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
-import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { nextTick } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 import { ROUTES } from '@/application/core/domain/routes';
 import AppNav from '@/application/core/presentation/components/AppNav.vue';
 
+import {
+  getMock,
+  IMAGE_BASE_URL,
+  ioInstances,
+} from '../../../../vitest.setup.ts';
 import { useCocktailsController } from '../domain/cocktails.controller';
 import { useCocktailsService } from '../domain/cocktails.service';
 import { COCKTAILS } from '../domain/types';
 import { COCKTAILS_ROUTES } from '../infrastructure/cocktails.routes';
 import { useCocktailsStore } from '../infrastructure/cocktails.store';
 import CocktailComponent from '../presentation/components/[slug].vue';
-
-const IMAGE_BASE_URL = 'https://www.thecocktaildb.com/images/media/drink/';
-const getMock = vi.fn((url: string) => {
-  const slug = new URLSearchParams(url.split('?')[1]).get('s');
-
-  if (slug === 'error-cocktail') {
-    return Promise.reject(new Error('API Error'));
-  }
-
-  return Promise.resolve({
-    drinks: [
-      {
-        idDrink: '1',
-        strDrink: slug,
-        strDrinkThumb: IMAGE_BASE_URL + `${slug}.jpg`,
-        strDrinkAlternate: null,
-        strTags: null,
-        strVideo: null,
-        strCategory: 'Test',
-        strIBA: null,
-        strAlcoholic: 'Alcoholic',
-        strGlass: 'Test Glass',
-        strImageSource: null,
-        strImageAttribution: null,
-        strCreativeCommonsConfirmed: 'Yes',
-        dateModified: '2023-01-01 12:00:00',
-        strInstructions: 'Test instructions',
-      },
-    ],
-  });
-});
-
-const ioInstances: Array<{
-  observe: Mock;
-  disconnect: Mock;
-  trigger: (entry: Partial<IntersectionObserverEntry>) => void;
-}> = [];
-
-vi.mock('@/libs/Http/domain/useRequest', () => ({
-  useRequest: () => ({ get: getMock }),
-}));
 
 describe('cocktails view', () => {
   let router: ReturnType<typeof createRouter>;
@@ -78,27 +42,6 @@ describe('cocktails view', () => {
           component: { template: '<div>404</div>' },
         },
       ],
-    });
-
-    ioInstances.length = 0;
-    global.IntersectionObserver = vi.fn((cb) => {
-      const instance = {
-        observe: vi.fn(() => {}),
-        disconnect: vi.fn(),
-        unobserve: vi.fn(() => {}),
-        takeRecords: vi.fn(() => []),
-        root: null,
-        rootMargin: '0px',
-        thresholds: [0],
-        trigger: (entry: Partial<IntersectionObserverEntry>) => {
-          cb(
-            [entry as IntersectionObserverEntry],
-            instance as IntersectionObserver
-          );
-        },
-      };
-      ioInstances.push(instance);
-      return instance;
     });
   });
 
@@ -165,6 +108,7 @@ describe('cocktails view', () => {
   });
 
   it('responsive interface with max width of 1024px and min width of 360px', () => {
+    // TODO test via e2e
     expect(true).toBe(true);
   });
 
@@ -232,5 +176,21 @@ describe('cocktails view', () => {
     const service = useCocktailsService();
     await service.fetchCocktails('margarita');
     expect(getMock).toHaveBeenCalledWith('/search.php?s=margarita');
+  });
+
+  it('sets loading state when fetching cocktails', async () => {
+    const controller = useCocktailsController();
+    store.cocktailCache.clear();
+    expect(store.isLoadingCocktail).toBe(false);
+    const fetchPromise = controller.getCocktails('margarita');
+    expect(store.isLoadingCocktail).toBe(true);
+
+    await fetchPromise;
+    await nextTick();
+
+    expect(store.isLoadingCocktail).toBe(false);
+
+    expect(store.cocktailCache.has('margarita')).toBe(true);
+    expect(store.cocktailSlug).toBe('margarita');
   });
 });
