@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import Spinner from '@/shared/ui/spinner/presentation/components/Spinner.vue';
 
-import { useLazyLoad } from '../domain/useLazyLoad';
+import { useLazyLoad } from '../../domain/useLazyLoad';
 
 const { el, isVisible } = useLazyLoad('0px', 0);
 </script>
