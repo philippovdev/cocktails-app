@@ -88,10 +88,12 @@ watch(
 }
 
 .cocktailsWrapper {
+  --wrapper-min-height: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-small);
+  min-height: var(--wrapper-min-height);
 }
 
 .loaderWrapper {
