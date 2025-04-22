@@ -1,4 +1,3 @@
-import { defineAsyncComponent } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 
 import { ROUTES } from '@/application/core/domain/routes.ts';
@@ -17,9 +16,7 @@ export const COCKTAILS_ROUTES: Readonly<RouteRecordRaw[]> = [
       {
         name: ROUTES.cocktailsShow.name,
         path: ROUTES.cocktailsShow.path,
-        component: defineAsyncComponent(
-          () => import('../presentation/components/[slug].vue')
-        ),
+        component: () => import('../presentation/components/[slug].vue'),
       },
     ],
   },

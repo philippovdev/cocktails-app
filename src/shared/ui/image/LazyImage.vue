@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import type { LazyImageProps } from './types.ts';
+defineOptions({ name: 'LazyImage' });
 import { useLazyImage } from './useLazyImage';
 
-defineOptions({ name: 'LazyImage' });
-
+type LazyImageProps = { src: string; alt?: string };
 const props = defineProps<LazyImageProps>();
 const { realSrc, imgEl, originalSrc } = useLazyImage(props.src);
 </script>

@@ -7,10 +7,15 @@ import LazyImage from '@/shared/ui/image/LazyImage.vue';
 import LazyLoad from '@/shared/ui/lazy/LazyLoad.vue';
 
 const props = defineProps<{ cocktail: Cocktail; isPivot?: boolean }>();
-const thumb = `url(${props.cocktail.strDrinkThumb})`;
 const measuresMap = ref(new Map());
 const ingredientSpans = ref<HTMLElement[]>([]);
 
+const imageSrc = computed(() => {
+  return window.innerWidth > 768
+    ? props.cocktail.strDrinkThumb
+    : props.cocktail.strDrinkThumb + '/small';
+});
+const thumb = `url(${imageSrc.value})`;
 const ingredients = computed(() => {
   const list: { ingredient: string; measure: string }[] = [];
 
@@ -20,15 +25,12 @@ const ingredients = computed(() => {
     const index = +key.replace('strIngredient', '');
     const measureKey = `strMeasure${index}`;
     if (!isCocktailKey(measureKey)) continue;
-    const measure = props.cocktail[measureKey];
 
+    const measure = props.cocktail[measureKey] || 'by hand';
     const ingredient = props.cocktail[key];
 
     if (typeof ingredient === 'string' && ingredient.trim().length) {
-      list.push({
-        ingredient,
-        measure: measure || 'by hand',
-      });
+      list.push({ ingredient, measure });
     }
   }
 
@@ -89,7 +91,7 @@ onMounted(init);
     <lazy-load :class="s.imageCell">
       <div :class="s.imageWrapper">
         <LazyImage
-          :src="cocktail.strDrinkThumb"
+          :src="cocktail.strDrinkThumb + '/medium'"
           :alt="cocktail.strDrink"
           width="200"
           height="200"
@@ -123,7 +125,6 @@ onMounted(init);
           >
             {{ measure }}
           </span>
-
           {{ ingredient }}
         </li>
       </ul>
