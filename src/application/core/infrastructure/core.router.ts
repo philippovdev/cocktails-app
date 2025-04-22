@@ -6,7 +6,7 @@ import { ROUTES } from '@/application/core/domain/routes.ts';
 
 export function _createRouter() {
   const router = createRouter({
-    history: createWebHashHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(import.meta.env.VITE_BASE_URL),
     routes: [
       {
         name: ROUTES.home.name,

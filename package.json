@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" -- --base=/cocktails-app/ && node defer-css.js",
+    "build": "run-p type-check \"build-only {@}\" -- && node defer-css.js",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
