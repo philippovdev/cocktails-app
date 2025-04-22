@@ -1,12 +1,12 @@
 import type { Component, TransitionProps } from 'vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 import { COCKTAILS_ROUTES } from '@/application/cocktails/infrastructure/cocktails.routes.ts';
 import { ROUTES } from '@/application/core/domain/routes.ts';
 
 export function _createRouter() {
   const router = createRouter({
-    history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHashHistory(import.meta.env.BASE_URL),
     routes: [
       {
         name: ROUTES.home.name,

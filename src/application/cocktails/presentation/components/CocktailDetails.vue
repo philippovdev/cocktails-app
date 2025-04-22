@@ -10,12 +10,7 @@ const props = defineProps<{ cocktail: Cocktail; isPivot?: boolean }>();
 const measuresMap = ref(new Map());
 const ingredientSpans = ref<HTMLElement[]>([]);
 
-const imageSrc = computed(() => {
-  return window.innerWidth > 768
-    ? props.cocktail.strDrinkThumb
-    : props.cocktail.strDrinkThumb + '/small';
-});
-const thumb = `url(${imageSrc.value})`;
+const thumb = `url(${props.cocktail.strDrinkThumb}/small)`;
 const ingredients = computed(() => {
   const list: { ingredient: string; measure: string }[] = [];
 
@@ -91,7 +86,7 @@ onMounted(init);
     <lazy-load :class="s.imageCell">
       <div :class="s.imageWrapper">
         <LazyImage
-          :src="imageSrc"
+          :src="cocktail.strDrinkThumb + '/medium'"
           :alt="cocktail.strDrink"
           width="200"
           height="200"
@@ -197,7 +192,7 @@ onMounted(init);
   overflow: hidden;
 
   display: flex;
-  max-height: 200px;
+  height: 200px;
   align-items: center;
   justify-content: center;
 }
