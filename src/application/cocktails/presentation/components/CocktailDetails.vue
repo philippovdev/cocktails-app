@@ -204,6 +204,7 @@ onMounted(init);
 
   display: flex;
   height: 200px;
+  width: 100%;
   align-items: center;
   justify-content: center;
 }
