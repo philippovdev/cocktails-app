@@ -99,12 +99,14 @@ describe('cocktails view', () => {
     expect(ioInstances[1].observe).toHaveBeenCalledWith(img.element);
 
     expect(img.attributes('src')).toBe('');
-    expect(img.attributes('data-src')).toBe(IMAGE_BASE_URL + 'margarita.jpg');
+    expect(img.attributes('data-src')).toBe(
+      IMAGE_BASE_URL + 'margarita.jpg/medium'
+    );
 
     ioInstances[1].trigger({ isIntersecting: true });
     await nextTick();
 
-    expect(img.attributes('src')).toBe(IMAGE_BASE_URL + 'margarita.jpg');
+    expect(img.attributes('src')).toBe(IMAGE_BASE_URL + 'margarita.jpg/medium');
   });
 
   it('responsive interface with max width of 1024px and min width of 360px', () => {
