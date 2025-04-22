@@ -100,7 +100,6 @@ watch(
 }
 
 .item + .item {
-  margin-top: var(--spacing-base);
   border-top: var(--border-width) solid var(--border-color);
 }
 </style>

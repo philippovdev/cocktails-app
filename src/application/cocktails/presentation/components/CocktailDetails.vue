@@ -65,11 +65,11 @@ async function init() {
 
 function preloadLCPImage() {
   if (!props.isPivot) return;
-  const img = new Image();
-  img.src = props.cocktail.strDrinkThumb;
+  const thumbPreload = new Image();
+  thumbPreload.src = props.cocktail.strDrinkThumb + '/small';
 
-  img.onload = () => {
-    img.remove();
+  thumbPreload.onload = () => {
+    thumbPreload.remove();
   };
 }
 

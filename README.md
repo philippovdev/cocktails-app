@@ -1,6 +1,6 @@
 # Project Guidelines for Cocktails App
 
-![draft interface](./cocktails-app-interface.png)
+![draft interface](./README-screenshots/cocktails-app-interface.png)
 
 ## Project Overview
 This is a Vue 3 application for displaying cocktail information fetched from TheCocktailDB API. The application follows a domain-driven design architecture with clear separation of concerns.
@@ -10,6 +10,10 @@ This is a Vue 3 application for displaying cocktail information fetched from The
 ## [LIVE DEMO](https://philippovdev.github.io/cocktails-app/)
 
 ---
+
+## _Lighthouse Desktop_
+![lighthouse desktop](./README-screenshots/lighthouse-desktop-score.png)
+
 
 ### Key Features
 - Cocktail data fetching from TheCocktailDB API
