@@ -102,7 +102,7 @@ onMounted(init);
       </div>
     </lazy-load>
 
-    <div :class="s.description">
+    <div :class="[s.description, s.text]">
       <span>{{ cocktail.strCategory }}</span>
       <span>{{ cocktail.strAlcoholic }}</span>
       <span>{{ cocktail.strGlass }}</span>
@@ -110,7 +110,7 @@ onMounted(init);
 
     <div :class="[s.instructions, s.section]">
       <h3>Instructions:</h3>
-      {{ cocktail.strInstructions }}
+      <span :class="s.text">{{ cocktail.strInstructions }}</span>
     </div>
 
     <div :class="[s.ingredients, s.section]">
@@ -119,7 +119,7 @@ onMounted(init);
         <li
           v-for="{ ingredient, measure } in ingredients"
           :key="ingredient"
-          :class="s.ingredientGroup"
+          :class="[s.ingredientGroup, s.text]"
         >
           <span
             :ref="(node) => registerSpan(node as HTMLElement)"
@@ -164,6 +164,10 @@ onMounted(init);
 
 .header {
   grid-area: header;
+}
+
+.text {
+  font-size: var(--font-size-regular);
 }
 
 .description {
