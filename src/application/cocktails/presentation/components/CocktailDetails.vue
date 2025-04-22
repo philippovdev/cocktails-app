@@ -91,7 +91,7 @@ onMounted(init);
     <lazy-load :class="s.imageCell">
       <div :class="s.imageWrapper">
         <LazyImage
-          :src="cocktail.strDrinkThumb + '/medium'"
+          :src="imageSrc"
           :alt="cocktail.strDrink"
           width="200"
           height="200"
