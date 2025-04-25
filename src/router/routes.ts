@@ -11,6 +11,14 @@ export const ROUTES = {
     name: 'cocktails//[:slug]',
     path: ':slug',
   },
+  meals: {
+    name: 'meals',
+    path: '/meals',
+  },
+  mealsShow: {
+    name: 'meals//[:slug]',
+    path: ':slug',
+  },
   notFound: {
     name: 'notFound',
     path: '/:catchAll(.*)',

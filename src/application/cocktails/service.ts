@@ -3,9 +3,9 @@ import { useRequest } from '@/libs/Http/useRequest.ts';
 import type { CocktailSlug, DrinksResponse } from './types.ts';
 
 export const useCocktailsService = () => {
-  const client = useRequest(import.meta.env.VITE_API_BASE_URL || '');
+  const client = useRequest(import.meta.env.VITE_API_DRINKS_URL || '');
 
-  function fetchCocktails(slug: CocktailSlug) {
+  function search(slug: CocktailSlug) {
     return client.get<DrinksResponse>(
       '/search.php?' +
         new URLSearchParams({
@@ -14,5 +14,5 @@ export const useCocktailsService = () => {
     );
   }
 
-  return { fetchCocktails };
+  return { search };
 };

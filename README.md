@@ -34,16 +34,14 @@ This is a Vue 3 application for displaying cocktail information fetched from The
 src/
 ├── application/
 │   ├── FeatureName/ # domain
-│   │   ├── domain/ # domain logic
-│   │   │   ├── featureName.service.ts # API communication
-│   │   │   └── featureName.controller.ts # business logic
-│   │   ├── infrastructure/
-│   │   │   ├── featureName.store.ts # Pinia store
-│   │   │   └── featureName.router.ts # routing
-│   │   └── presentation/ # UI components
-│   │       ├── components/ # feature-specific components
-│   │       └── views/ # feature views
+│   │   ├── service.ts # API communication
+│   │   ├── controller.ts # business logic
+│   │   ├── store.ts # Pinia store
+│   │   ├── routes.ts # routing
+│   │   └── components/ # UI components
 ├── assets/ # static assets
+├── router/ # router related assets
+├── store/ # store related assets
 ├── shared/ # shared utilities
 ├── libs/ # external services
 ├── App.vue

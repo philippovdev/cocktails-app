@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { ROUTES } from '@/application/core/domain/routes.ts';
-
 defineOptions({ name: 'CocktailsShow' });
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 
+import { ROUTES } from '@/router/routes.ts';
 import Spinner from '@/shared/ui/spinner/Spinner.vue';
 
-import { useCocktailsController } from '../../domain/cocktails.controller.ts';
-import { COCKTAILS, type CocktailSlug } from '../../domain/types.ts';
-import { useCocktailsStore } from '../../infrastructure/cocktails.store.ts';
-import CocktailDetails from './CocktailDetails.vue';
+import CocktailDetails from '../components/Show.vue';
+import { useCocktailsController } from '../controller.ts';
+import { useCocktailsStore } from '../store.ts';
+import { COCKTAILS, type CocktailSlug } from '../types.ts';
 
 const route = useRoute<CocktailSlug>();
 const controller = useCocktailsController();

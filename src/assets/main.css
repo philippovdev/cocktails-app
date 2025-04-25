@@ -31,21 +31,27 @@
     * ((100vw - var(--fluid-min-vw) * 1px)
     / (var(--fluid-max-vw) - var(--fluid-min-vw)))
     * 1rem
-  ),
+    ),
   var(--fluid-max-size) *1rem);
 
   /* COLORS */
   --color-primary: black;
   --color-link: #585858;
+  --color-text: black;
+  --color-text-primary: rgba(255, 255, 255, 0.9);
+  --color-text-primary--active: white;
 
   /* BACKGROUND */
-  --color-bg-primary--lighten: rgba(0, 0, 0, 0.025);
-  --color-bg-primary--active: rgba(0, 0, 0, 0.05);
+  --color-bg-primary: rgba(0, 0, 0, 0.6);
+  --color-bg-primary--lighten: rgba(0, 0, 0, 0.125);
+  --color-bg-primary--darken: rgba(0, 0, 0, 0.8);
+  --color-bg-primary--active: rgba(0, 0, 0, 0.75);
 
   /* BORDER */
   --border-width: 2px;
   --border-color--darken: #333;
   --border-color: rgba(0, 0, 0, 0.15);
+  --border-radius: 4px;
 
   /* TYPOGRAPHY */
   --font-size-regular: 1rem;

@@ -1,23 +1,55 @@
 import { mount } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { nextTick } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
-import { ROUTES } from '@/application/core/domain/routes';
-import AppNav from '@/application/core/presentation/components/AppNav.vue';
+import AppNav from '@/layout/components/AppNav.vue';
+import { ROUTES } from '@/router/routes.ts';
 
-import {
-  getMock,
-  IMAGE_BASE_URL,
-  ioInstances,
-} from '../../../../vitest.setup.ts';
-import { useCocktailsController } from '../domain/cocktails.controller';
-import { useCocktailsService } from '../domain/cocktails.service';
-import { COCKTAILS } from '../domain/types';
-import { COCKTAILS_ROUTES } from '../infrastructure/cocktails.routes';
-import { useCocktailsStore } from '../infrastructure/cocktails.store';
-import CocktailComponent from '../presentation/components/[slug].vue';
+import { ioInstances } from '../../../../vitest.setup.ts';
+import CocktailsShow from '../components/[slug].vue';
+import { useCocktailsController } from '../controller.ts';
+import { COCKTAILS_ROUTES } from '../routes.ts';
+import { useCocktailsService } from '../service.ts';
+import { useCocktailsStore } from '../store.ts';
+import { COCKTAILS } from '../types.ts';
+
+export const IMAGE_BASE_URL =
+  'https://www.thecocktaildb.com/images/media/drink/';
+export const getMock = vi.fn((url: string) => {
+  const slug = new URLSearchParams(url.split('?')[1]).get('s');
+
+  if (slug === 'error-cocktail') {
+    return Promise.reject(new Error('API Error'));
+  }
+
+  return Promise.resolve({
+    drinks: [
+      {
+        idDrink: '1',
+        strDrink: slug,
+        strDrinkThumb: IMAGE_BASE_URL + `${slug}.jpg`,
+        strDrinkAlternate: null,
+        strTags: null,
+        strVideo: null,
+        strCategory: 'Test',
+        strIBA: null,
+        strAlcoholic: 'Alcoholic',
+        strGlass: 'Test Glass',
+        strImageSource: null,
+        strImageAttribution: null,
+        strCreativeCommonsConfirmed: 'Yes',
+        dateModified: '2023-01-01 12:00:00',
+        strInstructions: 'Test instructions',
+      },
+    ],
+  });
+});
+
+vi.mock('@/libs/Http/useRequest', () => ({
+  useRequest: () => ({ get: getMock }),
+}));
 
 describe('cocktails view', () => {
   let router: ReturnType<typeof createRouter>;
@@ -56,7 +88,7 @@ describe('cocktails view', () => {
     await nextTick();
 
     expect(store.cocktailSlug).toBe('margarita');
-    expect(store.cocktailCache.has('margarita')).toBe(true);
+    expect(store.cocktailsCache.has('margarita')).toBe(true);
 
     const cocktails = store.cocktails;
     expect(cocktails).toBeDefined();
@@ -83,7 +115,7 @@ describe('cocktails view', () => {
     await router.push('/cocktails/margarita');
     await router.isReady();
 
-    const wrapper = mount(CocktailComponent, {
+    const wrapper = mount(CocktailsShow, {
       global: { plugins: [router, createPinia()] },
     });
     await nextTick();
@@ -144,12 +176,12 @@ describe('cocktails view', () => {
     await nextTick();
 
     // @ts-expect-error: expected to not be in cocktails list
-    expect(store.cocktailCache.get('error-cocktail')).toEqual([]);
+    expect(store.cocktailsCache.get('error-cocktail')).toEqual([]);
   });
 
   it('fetches data', async () => {
     const service = useCocktailsService();
-    const result = await service.fetchCocktails('mojito');
+    const result = await service.search('mojito');
     expect(result).toBeDefined();
     expect(result.drinks).toHaveLength(1);
     expect(result.drinks[0].strDrink).toBe('mojito');
@@ -176,13 +208,13 @@ describe('cocktails view', () => {
 
   it('uses GET: https://www.thecocktaildb.com/api/json/v1/1/search.php?s=<cocktail_code>', async () => {
     const service = useCocktailsService();
-    await service.fetchCocktails('margarita');
+    await service.search('margarita');
     expect(getMock).toHaveBeenCalledWith('/search.php?s=margarita');
   });
 
   it('sets loading state when fetching cocktails', async () => {
     const controller = useCocktailsController();
-    store.cocktailCache.clear();
+    store.cocktailsCache.clear();
     expect(store.isLoadingCocktail).toBe(false);
     const fetchPromise = controller.getCocktails('margarita');
     expect(store.isLoadingCocktail).toBe(true);
@@ -192,7 +224,7 @@ describe('cocktails view', () => {
 
     expect(store.isLoadingCocktail).toBe(false);
 
-    expect(store.cocktailCache.has('margarita')).toBe(true);
+    expect(store.cocktailsCache.has('margarita')).toBe(true);
     expect(store.cocktailSlug).toBe('margarita');
   });
 });

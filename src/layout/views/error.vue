@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 
-import { COCKTAILS } from '@/application/cocktails/domain/types.ts';
-import { ROUTES } from '@/application/core/domain/routes.ts';
-import AppFooter from '@/application/core/presentation/components/AppFooter.vue';
+import { COCKTAILS } from '@/application/cocktails/types.ts';
+import { ROUTES } from '@/router/routes.ts';
+
+import AppFooter from '../components/AppFooter.vue';
 
 defineOptions({
   name: 'ErrorComponent',

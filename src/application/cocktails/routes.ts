@@ -1,8 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router';
 
-import { ROUTES } from '@/application/core/domain/routes.ts';
+import { ROUTES } from '@/router/routes.ts';
 
-import { COCKTAILS } from '../domain/types.ts';
+import { COCKTAILS } from './types.ts';
 
 export const COCKTAILS_ROUTES: Readonly<RouteRecordRaw[]> = [
   {
@@ -16,7 +16,7 @@ export const COCKTAILS_ROUTES: Readonly<RouteRecordRaw[]> = [
       {
         name: ROUTES.cocktailsShow.name,
         path: ROUTES.cocktailsShow.path,
-        component: () => import('../presentation/components/[slug].vue'),
+        component: () => import('./components/[slug].vue'),
       },
     ],
   },

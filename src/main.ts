@@ -1,9 +1,10 @@
 import './assets/main.css';
 
+import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 
-import { coreRouter } from '@/application/core/infrastructure/core.router.ts';
-import { pinia } from '@/application/core/infrastructure/core.store.ts';
+const pinia = createPinia();
+import { coreRouter } from '@/router';
 
 import App from './App.vue';
 

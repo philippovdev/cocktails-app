@@ -1,36 +1,22 @@
 <script setup lang="ts">
 defineOptions({ name: 'CocktailDetails' });
-import { computed, nextTick, onBeforeMount, onMounted, ref } from 'vue';
+import { computed, onBeforeMount, onMounted, ref } from 'vue';
 
-import type { Cocktail } from '@/application/cocktails/domain/types.ts';
 import LazyImage from '@/shared/ui/image/LazyImage.vue';
+import preloadLcp from '@/shared/ui/image/preloadLcp.ts';
 import LazyLoad from '@/shared/ui/lazy/LazyLoad.vue';
 
+import { useCocktailsStore } from '../store.ts';
+import type { Cocktail } from '../types.ts';
+
 const props = defineProps<{ cocktail: Cocktail; isPivot?: boolean }>();
+const store = useCocktailsStore();
+
 const measuresMap = ref(new Map());
 const ingredientSpans = ref<HTMLElement[]>([]);
 
 const thumb = `url(${props.cocktail.strDrinkThumb}/small)`;
-const ingredients = computed(() => {
-  const list: { ingredient: string; measure: string }[] = [];
-
-  for (const key in props.cocktail) {
-    if (!key.startsWith('strIngredient')) continue;
-    if (!isCocktailKey(key)) continue;
-    const index = +key.replace('strIngredient', '');
-    const measureKey = `strMeasure${index}`;
-    if (!isCocktailKey(measureKey)) continue;
-
-    const measure = props.cocktail[measureKey] || 'by hand';
-    const ingredient = props.cocktail[key];
-
-    if (typeof ingredient === 'string' && ingredient.trim().length) {
-      list.push({ ingredient, measure });
-    }
-  }
-
-  return list;
-});
+const thumbLarge = `url(${props.cocktail.strDrinkThumb}/medium)`;
 
 const getLongestMeasure = computed(() => {
   let longest = 0;
@@ -50,34 +36,21 @@ function registerSpan(el: HTMLElement) {
   }
 }
 
-function isCocktailKey(key: string): key is keyof Cocktail {
-  return key in props.cocktail;
+function preloadLCPImage() {
+  if (props.isPivot) {
+    preloadLcp([
+      props.cocktail.strDrinkThumb + '/small',
+      props.cocktail.strDrinkThumb + '/medium',
+    ]);
+  }
 }
 
-async function init() {
-  await nextTick();
+function init() {
   ingredientSpans.value.forEach((node) => {
     const measure = node.innerText;
     const width = node.getBoundingClientRect().width;
     measuresMap.value.set(measure, width);
   });
-}
-
-function preloadLCPImage() {
-  if (!props.isPivot) return;
-  const bgPreload = new Image();
-  const imagePreload = new Image();
-
-  bgPreload.src = props.cocktail.strDrinkThumb + '/small';
-  imagePreload.src = props.cocktail.strDrinkThumb + '/medium';
-
-  bgPreload.onload = () => {
-    bgPreload.remove();
-  };
-
-  imagePreload.onload = () => {
-    imagePreload.remove();
-  };
 }
 
 onBeforeMount(preloadLCPImage);
@@ -117,7 +90,9 @@ onMounted(init);
       <h3>List of ingredients:</h3>
       <ul>
         <li
-          v-for="{ ingredient, measure } in ingredients"
+          v-for="{ ingredient, measure } in store.cocktailsWithIngredients[
+            cocktail.idDrink
+          ].ingredients"
           :key="ingredient"
           :class="[s.ingredientGroup, s.text]"
         >
@@ -213,7 +188,7 @@ onMounted(init);
   content: '';
   position: absolute;
   inset: 0;
-  background-image: v-bind(thumb);
+  background-image: v-bind(thumb), v-bind(thumbLarge);
   background-size: cover;
   background-position: center;
   filter: blur(10px) saturate(1.2);

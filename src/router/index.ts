@@ -1,8 +1,9 @@
 import type { Component, TransitionProps } from 'vue';
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import { COCKTAILS_ROUTES } from '@/application/cocktails/infrastructure/cocktails.routes.ts';
-import { ROUTES } from '@/application/core/domain/routes.ts';
+import { COCKTAILS_ROUTES } from '@/application/cocktails/routes.ts';
+import { MEALS_ROUTES } from '@/application/meals/routes.ts';
+import { ROUTES } from '@/router/routes';
 
 export function _createRouter() {
   const router = createRouter({
@@ -14,6 +15,7 @@ export function _createRouter() {
         redirect: { name: ROUTES.cocktails.name },
       },
       ...COCKTAILS_ROUTES,
+      ...MEALS_ROUTES,
       {
         name: ROUTES.notFound.name,
         path: ROUTES.notFound.path,
@@ -33,7 +35,7 @@ export function _createRouter() {
     if (!resolvedLayouts.has(layout)) {
       resolvedLayouts.set(
         layout,
-        (await import(`../presentation/views/${layout}.vue`)).default
+        (await import(`../layout/views/${layout}.vue`)).default
       );
     }
 
